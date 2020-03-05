@@ -22,7 +22,9 @@
   "main": "plug.cjs.js",
   "module": "plug.js",
   "files": [
-    "plug.js"
+    "plug.js",
+    "plug.cjs.js",
+    "plug.cjs.js.map"
   ],
   "publishConfig": {
     "access": "public"
