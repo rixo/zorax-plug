@@ -1,6 +1,6 @@
 {
   "name": "@zorax/plug",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "description": "plugin system for zora",
   "keywords": [
     "zora",
@@ -28,7 +28,9 @@
     "access": "public"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "zoar"
   },
   "dependencies": {
     "zora": "^3.1.8"
@@ -40,10 +42,5 @@
     "rollup": "^1.32.0",
     "zoar": "^0.0.1-0",
     "zorax": "^0.0.3-alpha.0"
-  },
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "zoar"
   }
 }
