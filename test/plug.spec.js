@@ -651,3 +651,41 @@ test('harness.report is bound to harness', t =>
     const { report } = z
     return report(blackHole)
   }))
+
+test('report hook', async t => {
+  const before0 = t.spy(async () => {
+    await Promise.resolve(resolve => setTimeout(resolve, 1))
+    before0.resolved = true
+  })
+
+  const after1 = t.spy(() => {
+    after2.hasBeenCalled(0, 'after hooks are called in order')
+  })
+  const before1 = t.spy(h => {
+    before0.hasBeenCalled(1, 'report hooks are called in order')
+    t.eq(before0.resolved, true, 'async hooks are awaited')
+    t.eq(h, z, 'before hook is passed the harness')
+    return after1
+  })
+
+  const z = createHarness([
+    {
+      report: before0,
+    },
+    {
+      report: before1,
+    },
+  ])
+
+  const after2 = t.spy(() => {
+    after1.hasBeenCalled(1, 'report hooks are called in order (2)')
+  })
+  const before2 = t.spy(() => after2)
+
+  z.plug({ report: before2 })
+
+  await z.report()
+
+  before2.hasBeenCalled(1, 'proxy hooks are called')
+  after2.hasBeenCalled(1, 'proxy after hooks are called')
+})

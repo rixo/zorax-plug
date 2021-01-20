@@ -64,6 +64,13 @@
   dependencies:
     "@types/node" "*"
 
+"@zorax/plug@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@zorax/plug/-/plug-0.0.1.tgz#eca166b4ec1c5d0fa929b02e7e736e29c9e03961"
+  integrity sha512-jE30OmUMArSsEQDXmBvN4Tk2tL4ihRucAW9cqVqP0twjtGQsB5pwdcG0vWJA0cVWXOG2w3iHBKbEsBG92L8tyA==
+  dependencies:
+    zora "^3.1.8"
+
 acorn@^7.1.0:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.1.tgz#e35668de0b402f359de515c5482a1ab9f89a69bf"
@@ -321,9 +328,10 @@ which@^1.2.10:
   dependencies:
     isexe "^2.0.0"
 
-zoar@^0.0.1-0:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/zoar/-/zoar-0.0.1.tgz#86fd79268c0bd0107f02815a89037e8e2b695692"
+zoar@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/zoar/-/zoar-0.0.4.tgz#082e877dc50e6984d6b8a763ba66ad8c6f6f94cc"
+  integrity sha512-7EtSFuJHOXH0CdEmD5F9xpFs1RG4FdP+V5uUq03qm/tWpoOQa12WWfbWurBvkQ0sKkn52wEGIyfqzkqbfZlr7Q==
   dependencies:
     arg "^4.1.2"
     cheap-watch "^1.0.2"
@@ -351,8 +359,10 @@ zora@^3.0.0, zora@^3.1.8:
   version "3.1.8"
   resolved "https://registry.yarnpkg.com/zora/-/zora-3.1.8.tgz#84cf75a057005931058db43366cad8c75a21f04c"
 
-zorax@^0.0.3-alpha.0:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/zorax/-/zorax-0.0.3.tgz#fb401dad008bfa4ed78b8a41e02c521d0fae1d58"
+zorax@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/zorax/-/zorax-0.0.10.tgz#6d8ca6fc8bbcc094d772ef19fe21386a7fb6c382"
+  integrity sha512-kC4mn67ue9gi9jXzWio9geXnUePApst9A/G7Jqsk6VoWhbKGVQ3KqbdVyLkQHKX5tNdQMxocw1aHBCMOG2KAow==
   dependencies:
+    "@zorax/plug" "^0.0.1"
     zora "^3.0.0"

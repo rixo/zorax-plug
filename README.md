@@ -33,7 +33,7 @@ harness.report()
 
 ### `createHarnessFactory`
 
-~~~js
+```js
 import { createHarnessFactory } from '@zorax/plug'
 
 const defaultPlugins = [...]
@@ -44,7 +44,7 @@ export const createHarness = createHarnessFactory(
   defaultOptions,
   defaultPlugins,
 )
-~~~
+```
 
 ## Plugins
 
@@ -52,7 +52,7 @@ A plugin is a plain object with a `name`, and optional hooks.
 
 ### Example
 
-~~~js
+```js
 const myPlugin = {
   name: 'my plugin',
 
@@ -74,8 +74,24 @@ const myPlugin = {
   decorateTest(t, z, h) => {},
   decorateHarness(z, h) => {},
   decorateInit(h) => {},
+
+  // - report hook -
+  //
+  // These hooks will be called before report of the root harness, even if
+  // plugged from a child proxy (i.e. when the tests begins being executed).
+  //
+  // If the report hook returns a function, then it will be called after report
+  // of the root harness, that is after the tests have completed and the result
+  // reported.
+  //
+  report(h, args) => h => {
+    // before report
+    return () => {
+      // after report
+    }
+  },
 }
-~~~
+```
 
 ### Hooks
 
@@ -85,6 +101,7 @@ const myPlugin = {
 - decorateTest
 - decorateHarness
 - decorateInit
+- report
 
 ### Lifecycle
 
@@ -96,7 +113,7 @@ There is an additional "decorate phase" where plugins are not allowed to change 
 
 Given plugins `[pg1, pg2]`, hooks are called in the following order:
 
-~~~
+```
 # mutate phase
 pg1.test -> pg1.harness -> pg1.init ->
 pg2.test -> pg2.harness -> pg2.init ->
@@ -104,7 +121,7 @@ pg2.test -> pg2.harness -> pg2.init ->
 # decorate phase
 pg1.decorateTest -> pg1.decorateHarness -> pg1.decorateInit ->
 pg2.decorateTest -> pg2.decorateHarness -> pg2.decorateInit
-~~~
+```
 
 ### Type of targets
 
@@ -138,7 +155,7 @@ Hooks of the different _stages_ are called with the following arguments:
 
 #### Access harness options
 
-~~~js
+```js
 {
   test(t, { options: { ... }}) {},
   harness(z, { options: { ... }}) {},
@@ -146,11 +163,11 @@ Hooks of the different _stages_ are called with the following arguments:
     const { options: { ... } } = h
   },
 }
-~~~
+```
 
 #### Skip decorating harness & proxies in test hook
 
-~~~js
+```js
 {
   test(t, z, h) {
     if (t === z) return
@@ -158,4 +175,4 @@ Hooks of the different _stages_ are called with the following arguments:
     // do your things
   }
 }
-~~~
+```

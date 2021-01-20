@@ -1,5 +1,7 @@
 import { createHarness as createZoraHarness } from 'zora'
 
+const REPORT_HOOKS = Symbol('@zorax/plug:REPORT_HOOKS')
+
 const noop = () => {}
 
 const getHarnessMutators = pg => [pg.test, pg.harness, pg.init]
@@ -103,6 +105,10 @@ const plug = (harness, parentPlugins, target, newPluginsInput) => {
           pg.name
       )
     }
+
+    if (pg.report) {
+      harness[REPORT_HOOKS].push(pg.report)
+    }
   })
 
   const proxy = createProxy(target)
@@ -172,11 +178,26 @@ export const createHarnessFactory = (...args) => {
 
     const harness = createHarness(options, ...args)
 
-    harness.report = harness.report.bind(harness)
-
     harness.options = options
 
     const plugins = [...factoryPlugins, ...harnessPlugins].filter(Boolean)
+
+    harness[REPORT_HOOKS] = plugins.filter(pg => pg.report).map(pg => pg.report)
+
+    const { report } = harness
+    harness.report = async (...args) => {
+      const after = []
+      for (const reportHook of harness[REPORT_HOOKS]) {
+        const afterHook = await reportHook(harness, args)
+        if (afterHook) after.push(afterHook)
+      }
+
+      await report.apply(harness, args)
+
+      for (const afterHook of after) {
+        await afterHook()
+      }
+    }
 
     augmentProxy(harness, harness, plugins, getHarnessHooks)
 
