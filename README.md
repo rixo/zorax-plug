@@ -1,3 +1,9 @@
+# MIGRATED
+
+Migrated to [zorax monorepo](https://github.com/rixo/zorax/tree/master/packages/zorax-plug)
+
+---
+
 # `@zorax/plug`
 
 > Plugin system for Zora
